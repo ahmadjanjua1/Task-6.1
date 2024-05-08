@@ -1,0 +1,64 @@
+pipeline {
+    agent any
+    stages {
+        stage("Build") {
+            steps {
+                echo "Building the code using Maven"
+                
+            }
+        }
+        stage("Unit and Integration Tests") {
+            steps {
+                echo "Running unit tests"
+                
+                echo "Running integration tests"
+                
+            }
+        }
+        stage("Code Analysis") {
+            steps {
+                echo "Running code analysis using SonarQube..."
+                
+            }
+        }
+        stage("Security Scan") {
+            steps {
+                echo "Performing security scan with OWASP ZAP..."
+                
+            }
+            post {
+                always {
+                    mail to: "ahmad.subktageen9061@gmail.com",
+                    subject: "Security Scan Status",
+                    body: "Successfull! Security Scan Done!"
+                }
+            }
+        }
+        stage("Staging") {
+            steps {
+                echo "Running Staging (AWS EC2 instance)..."
+                
+            }
+        }
+        stage("Integration Tests on Staging") {
+            steps {
+                echo "Running integration tests on Staging"
+                
+            }
+            post {
+                always {
+                    mail to: "ahmad.subktageen9061@gmail.com",
+                    subject: "Testing Status",
+                    body: "Successfull! Testing Done!"
+                }
+            }
+        }
+        stage("Deploy to Production") {
+            steps {
+                echo "Deploying to Production Server (AWS EC2 instance)"
+                
+            }
+      
+        }
+    }
+}
